@@ -3,4 +3,6 @@
 sed -e 's/|en/"|en/g' $1 >> output.txt 
 sed -i 's/|/|"/9' output.txt
 sed -in -e 's/.*|"//g' -in -e 's/"|.*//g' output.txt 
+perl -nle 'print if m{^[[:ascii:]]+$}' output.txt >> outputclean.txt
 rm output.txtn
+rm output.txt
