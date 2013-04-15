@@ -1,0 +1,15 @@
+#!/bin/bash
+# PURPOSE: Process a file line by line with PIPED while-read loop.
+
+FILENAME=$1
+count=0
+cat $FILENAME | while read LINE
+do
+       let count++
+       echo "$count $LINE"
+       echo $LINE>temp.txt
+       java -jar ~/language/lib/langdetect.jar --detectlang -d ~/language/profiles temp.txt 
+       echo "-----------------------------------------"
+done
+rm temp.txt
+echo -e "\nTotal $count Lines read"
