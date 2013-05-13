@@ -6,10 +6,16 @@ count=0
 cat $FILENAME | while read LINE
 do
        let count++
-       echo "$count $LINE"
-       echo $LINE>temp.txt
-       java -jar ~/language/lib/langdetect.jar --detectlang -d ~/language/profiles temp.txt 
-       echo "-----------------------------------------"
+        echo $LINE>temp.txt
+#       java -jar ~/language/lib/langdetect.jar --detectlang -d ~/language/profiles temp.txt 
+       result=`java -jar ~/language/lib/langdetect.jar --detectlang -d ~/language/profiles temp.txt`
+#       echo "$result"
+case "$result" in 
+*en* )cat temp.txt>>english_$1;;
+*) ;;
+esac
+
+#echo "-----------------------------------------"
 done
 rm temp.txt
 echo -e "\nTotal $count Lines read"
